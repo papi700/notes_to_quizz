@@ -37,7 +37,7 @@ const flashcard = (number, question, choices) => {
         _isMultipleValidChoices: false,
         _isAnswered: false,
 
-        get _isMultipleValidChoices () {
+        get isMultipleValidChoices () {
             return  this.validChoiceStrings.length > 1
         },
 
@@ -177,7 +177,7 @@ const correctFlashcards = (flashcards) => {
     }
 }
 
-document.getElementById('create-flashcards').onclick = () => {
+document.getElementById('create-flashcards').onclick = () => {  
     const flashcards = createFlashCards()
     loadFlashcards(flashcards) 
     document.getElementById('submission').onclick = () => {
