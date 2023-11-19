@@ -53,6 +53,7 @@ const flashcard = (number, question, choices) => {
 
         renderChoices () {
             const choicesContainer = document.createElement('div')
+            choicesContainer.className = 'choices-container'
             for (const choice of this.choices) {
                 choicesContainer.appendChild(choice.render())
             }
@@ -61,6 +62,7 @@ const flashcard = (number, question, choices) => {
 
         render () {
             const flashcardContainer = document.createElement('div')
+            flashcardContainer.className = 'flashcard'
             flashcardContainer.id = this.containerId
             flashcardContainer.appendChild(this.renderQuestion())
             flashcardContainer.appendChild(this.renderChoices())
@@ -83,7 +85,7 @@ const flashcard = (number, question, choices) => {
                     }
                 })
             } else {
-                this.renderErrorMessage("Please Select Answer")
+                this.renderErrorMessage("Please select answer!")
             }
         }
         
@@ -109,6 +111,7 @@ const choice = (str, flashcardNumber, inputType, isValid) => {
         render () {
             const inputName = `input-${this.flashcardNumber}`
             const container = document.createElement('div')
+            container.className = 'choice-container'
             container.id = this.containerId
             const input = document.createElement('input')
             input.type = this.inputType
@@ -166,13 +169,17 @@ const loadFlashcards = (flashcards) => {
 }
 
 const correctFlashcards = (flashcards) => {
+    if (document.getElementById("error-message")) {
+        document.getElementById("error-message").style.display = "none"
+    }
     if (flashcards.every(flashcard => flashcard.isAnswered)) {
         const validColor = '#A9DFBF'
-        const invalidColor = '#CD6155'
+        const invalidColor = '#F67979'
         flashcards.forEach(flashcard => flashcard.correct(validColor, invalidColor))
     } else {
         const errorMessage = document.createElement('p')
-        errorMessage.innerHTML = "Please answer all the questions"
+        errorMessage.innerHTML = "Please answer all the questions!"
+        errorMessage.id = "error-message"
         document.getElementById('flashcards').insertAdjacentElement('afterbegin', errorMessage)
     }
 }
@@ -182,5 +189,5 @@ document.getElementById('create-flashcards').onclick = () => {
     loadFlashcards(flashcards) 
     document.getElementById('submission').onclick = () => {
         correctFlashcards(flashcards)
-    }
+    } 
 }
