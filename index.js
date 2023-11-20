@@ -144,7 +144,7 @@ const createChoices = (choiceStrings, flashcardNumber, validChoiceStrings) => {
 }
 
 const createFlashCards = () => {
-    const rawText = document.getElementById("raw-flashcards").value
+    const rawText = document.getElementById("raw-flashcards").value.replace(/\n/g, "")
     const flashcards = []
     const questions = getAllQuestionStrings(rawText)
     const allChoiceStrings = getChoiceStringsArrays(rawText)
