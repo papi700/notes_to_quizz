@@ -3,7 +3,7 @@
 
 
 import createTextArea from "./text-area.js";
-import getAllQuestionStrings from "./flashcard.js";
+import createFlashCards from "./flashcard.js";
 
 const body = document.getElementsByTagName('body')[0]
 
@@ -17,11 +17,18 @@ createButton.innerHTML = "Create"
 body.appendChild(createButton)
 
 createButton.onclick = () => {
-    // console.log(textArea.value)
-    console.log(textArea.value.match(/^[0-9]+\.\s(.*?)(?=(?:\n[0-9]+\.|\n\s*Choices))/gs))
-    // let rawText = textArea.value
-    // body.removeChild(textArea)
-    // createButton.innerHTML = "Correct"
+    // console.log(createFlashCards(textArea.value)) 
+    //console.log(textArea.value.match(/^[0-9]+\.\s(.*?)(?=(?:\n[0-9]+\.|\n\s*Choices))/gs))
+    let rawText = textArea.value
+    body.removeChild(textArea)
+    createButton.innerHTML = "Correct"
+    const flashcards = createFlashCards(rawText)
+    body.insertAdjacentElement("afterbegin", flashcards[0].render())
+    createButton.onclick = () => {
+        const validColor = '#A9DFBF'
+        const invalidColor = '#CD6155'
+        flashcards[0].correct(validColor, invalidColor)
+    }
     // const flashcards = getAllQuestionStrings(rawText)
     // console.log(flashcards)
     // if (typeof flashcards[0] != 'undefined') {

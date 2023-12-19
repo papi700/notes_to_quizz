@@ -30,7 +30,7 @@ const getValidChoiceStringsArrays= str => {
 }
 
 const flashcard = (number, question, choices) => {
-    id = `flashcard-${number}`
+    const id = `flashcard-${number}`
     return {
         number,
         question,
@@ -48,7 +48,7 @@ const flashcard = (number, question, choices) => {
         },
         
         renderQuestion () {
-            questionElement = document.createElement('h2')
+            const questionElement = document.createElement('h2')
             questionElement.innerHTML = this.question
             return questionElement
         },
@@ -70,7 +70,7 @@ const flashcard = (number, question, choices) => {
         },
 
         renderErrorMessage (errorMessage) {
-            errorElement = document.createElement('p')
+            const errorElement = document.createElement('p')
             errorElement.innerHTML = errorMessage
             document.getElementById(this.containerId).insertAdjacentElement('afterbegin', errorElement)
         },
@@ -144,6 +144,7 @@ const createChoices = (choiceStrings, flashcardNumber, validChoiceStrings) => {
 
 const createFlashCards = rawText => {
     // const rawText = document.getElementById("raw-flashcards").value
+    rawText = rawText.replace(/\n/g, "")
     const flashcards = []
     const questions = getAllQuestionStrings(rawText)
     const allChoiceStrings = getChoiceStringsArrays(rawText)
@@ -189,4 +190,4 @@ const createFlashCards = rawText => {
 //     }
 // }
 
-export default getAllQuestionStrings
+export default createFlashCards
